@@ -1,4 +1,5 @@
 import { LitElement, html, css } from "lit";
+import { Dialog } from "./dialog.js";
 
 /**
  * Now it's your turn. Here's what we need to try and do:
@@ -33,18 +34,18 @@ export class MediaImage extends LitElement {
         color: black;
         background-color: white;
         display: block;
-        width: 20vw;
         padding: 20px;
         margin-bottom: 20px;
         text-align: center;
       }
 
       .image {
-        width: 25vw;
-        height: 20vw;
+        width: 65vw;
+        height: 25vw;
         overflow: hidden;
         object-fit: fil;
         border-radius: 10px;
+        border: 4px solid var(--media-image-primary-color-1);
         transition: all 0.3s ease-in;
       }
       .info-panel {

@@ -22,10 +22,14 @@ export class Dialog extends LitElement {
       .container {
         width: 20vw;
         padding: 20px;
-        background-color: white;
         transition: all 250ms ease-in;
         border-radius: 8px;
         transform: scale(1);
+        top: 40%;
+        left: 40%;
+        position: fixed;
+        background-color: rgba(265, 265, 265, 0.9); /* Semi-transparent background */
+        z-index: 999; /* Ensure it's above other content */
       }
 
       .hidden {
@@ -40,6 +44,10 @@ export class Dialog extends LitElement {
         padding: 10px 20px;
         border-radius: 5px;
         float: right;
+      }
+
+      .x-button:hover, .x-button:focus, .x-button:active{
+        background-color: maroon;
       }
     `;
   }

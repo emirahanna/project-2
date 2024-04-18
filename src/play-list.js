@@ -25,10 +25,12 @@ export class PlayList extends LitElement {
         background-color: white;
         color: black;
         display: block;
-        width: 30vw;
+        width: 70vw;
         padding: 20px;
         margin-bottom: 20px;
         border-radius: 8px;
+        justify-content: center;
+
       }
     `;
   }
