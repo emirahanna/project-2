@@ -15,12 +15,24 @@ export class Dialog extends LitElement {
   static get styles() {
     return css`
       :host {
-        background-color: white;
         color: black;
         display: block;
+      }
+      
+      .container {
         width: 20vw;
         padding: 20px;
+        background-color: white;
+        transition: all 250ms ease-in;
+        border-radius: 8px;
+        transform: scale(1);
       }
+
+      .hidden {
+        transform: scale(0);
+        transition: all 100ms ease-in;
+      }
+
       .x-button {
         background-color: red;
         color: white;
@@ -33,13 +45,13 @@ export class Dialog extends LitElement {
   }
 
   render() {
-    return html`<div>
-      <button class="x-button" @click=${this.toggleOpen}>X</button>
-      <div>
-        <h1>${this.title}</h1>
-        <p>${this.text}</p>
-        <p>${this.open}</p>
-      </div>
+    return html`<div class="${this.open? "container" : "hidden"}">
+        <button class="x-button" @click=${this.openFalse}>X</button>
+        <div>
+          <h1>${this.title}</h1>
+          <p>${this.text}</p>
+          <p>${this.open}</p>
+        </div>
     </div>`;
   }
 
@@ -48,12 +60,15 @@ export class Dialog extends LitElement {
   }
 
   addOpenImageEventListener() {
-    document.body.addEventListener("open-gallery", this.toggleOpen.bind(this));
-    console.log("event listener added");
+    document.body.addEventListener("open-gallery", this.openTrue.bind(this));
   }
 
-  toggleOpen() {
-    this.open = !this.open;
+  openTrue() {
+    this.open = true;
+  }
+
+  openFalse() {
+    this.open = false;
   }
 
   static get properties() {

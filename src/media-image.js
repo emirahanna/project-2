@@ -31,6 +31,7 @@ export class MediaImage extends LitElement {
         --media-image-secondary-color-2: lightgray;
         --media-image-secondary-color-3: red;
         color: black;
+        background-color: white;
         display: block;
         width: 20vw;
         padding: 20px;
@@ -85,47 +86,27 @@ export class MediaImage extends LitElement {
       this.content.includes("jpeg") ||
       this.content.includes("png")
     ) {
-      return html`<img class="image" src="${this.content}" @click=${this.createOpenGalleryEvent.bind(this)}/>`;
+      return html`<img class="image" src="${this.content}" @click=${this.createOpenGalleryEvent}/>`;
     } else if (
       this.content.includes("mp4") ||
       this.content.includes("mov") ||
       this.content.includes("avi")
     ) {
-      return html`<video class="image" src="${this.content}" controls @click=${this.createOpenGalleryEvent.bind(this)}></video>`;
+      return html`<video class="image" src="${this.content}" controls @click=${this.createOpenGalleryEvent}></video>`;
     } else if (
       this.content.includes("mp3") ||
       this.content.includes("wav") ||
       this.content.includes("flac")
     ) {
-      return html`<audio class="image" src="${this.content}" controls @click=${this.createOpenGalleryEvent.bind(this)}></audio>`;
+      return html`<audio class="image" src="${this.content}" controls @click=${this.createOpenGalleryEvent}></audio>`;
     } else {
       return html`<p>Invalid media type</p>`;
     }
   }
 
-  firstUpdated() {
-    // Executed after the first update/render cycle
-   // this.addImageClickListener();
-  }
-
   createOpenGalleryEvent(){
     this.dispatchEvent(new CustomEvent("open-gallery", {bubbles: true, composed: true}));
-    console.log("open-gallery event dispatched")
   }
-  
-
-  /*
-  addImageClickListener() {
-    //making sure the image has been attached to the DOM before adding the event listener
-    const imageElement = this.shadowRoot.querySelector(".image");
-    
-    if (imageElement != null) {
-      imageElement.addEventListener("click", () => {
-        this.dispatchEvent(new CustomEvent("open-gallery", {bubbles: true}));
-      });
-    }
-  }
-  */
 
   static get properties() {
     return {
