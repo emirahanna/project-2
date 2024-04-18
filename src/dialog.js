@@ -28,7 +28,8 @@ export class Dialog extends LitElement {
         top: 40%;
         left: 40%;
         position: fixed;
-        background-color: rgba(265, 265, 265, 0.9); /* Semi-transparent background */
+        background-color: white;
+        border: 1px solid black;
         z-index: 999; /* Ensure it's above other content */
       }
 
@@ -68,7 +69,7 @@ export class Dialog extends LitElement {
   }
 
   addOpenImageEventListener() {
-    document.body.addEventListener("open-gallery", this.openTrue.bind(this));
+    document.body.addEventListener("open-dialog", this.openTrue.bind(this));
   }
 
   openTrue() {

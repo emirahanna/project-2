@@ -16,6 +16,7 @@ export class MediaImage extends LitElement {
 
   constructor() {
     super();
+    this.index = 0;
     this.content =
       "https://preview.redd.it/02411nxds2m91.png?width=640&crop=smart&auto=webp&s=3a91ab902fdab402e4bcb84a3907bb0a2bad2d9b";
     this.caption = "caption";
@@ -77,7 +78,8 @@ export class MediaImage extends LitElement {
           <p>${this.description}</p>
         </div>
       </div>
-    </div>`;
+    </div>
+    `;
   }
 
   displayContent() {
@@ -106,7 +108,7 @@ export class MediaImage extends LitElement {
   }
 
   createOpenGalleryEvent(){
-    this.dispatchEvent(new CustomEvent("open-gallery", {bubbles: true, composed: true}));
+    this.dispatchEvent(new CustomEvent("open-dialog", {bubbles: true, composed: true}));
   }
 
   static get properties() {
