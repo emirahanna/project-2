@@ -33,7 +33,6 @@ export class MediaImage extends LitElement {
         --media-image-secondary-color-2: lightgray;
         --media-image-secondary-color-3: red;
         color: black;
-        background-color: white;
         display: block;
         padding: 20px;
         margin-bottom: 20px;
@@ -41,8 +40,8 @@ export class MediaImage extends LitElement {
       }
 
       .image {
-        width: 65vw;
-        height: 25vw;
+        width: var(--media-image-width, 40vw);;
+        height: var(--media-image-height, auto);
         overflow: hidden;
         object-fit: fil;
         border-radius: 10px;
@@ -70,6 +69,7 @@ export class MediaImage extends LitElement {
   }
 
   render() {
+    window.Dialog.requestAvailability();
     return html`<div>
       <div class="image-panel">
         ${this.displayContent()}
@@ -81,6 +81,7 @@ export class MediaImage extends LitElement {
     </div>
     `;
   }
+
 
   displayContent() {
     //making it so that the media type is determined by the file extension
@@ -108,6 +109,7 @@ export class MediaImage extends LitElement {
   }
 
   createOpenGalleryEvent(){
+    console.log("IMAGE CLICKED")
     this.dispatchEvent(new CustomEvent("open-dialog", {bubbles: true, composed: true}));
   }
 
