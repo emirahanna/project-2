@@ -16,12 +16,19 @@ export class Dialog extends LitElement {
     return css`
       :host {
         display: block;
-        height: 100%;
-        width: 70%;
       }
 
-      
+      .shadow[inert] {
+        height: 100vh;
+        width: 100vw;
+        background-color: black;
+        opacity: 0.7;
+      }
+
       .container {
+        height: 100%;
+        width: 70%;
+        margin: 20px;
         padding: 20px;
         position: fixed;
         transition: all 250ms ease-in;
@@ -33,18 +40,13 @@ export class Dialog extends LitElement {
         left: 50%;
         transform: translate(-50%, -50%); /* Center the element itself */
       }
-      .container::before{
-        width:100vw;
-        height:100vh;
-        background-color: rgb(0,0,0,0.7);
+
+      .pic {
+        width: 40vw;
+        height: 30vw;
+        object-fit: contain;
       }
 
-      .pic{
-        max-width:40vw;
-        height:auto;
-        object-fit: cover;
-      }
-      
       .x-button {
         background-color: red;
         color: white;
@@ -66,29 +68,32 @@ export class Dialog extends LitElement {
     if (!this.open) {
       return html``;
     }
-    return html`<div class="container">
+    return html`
+    <div class="shadow">
+      <div class="container">
         <button class="x-button" @click=${this.openFalse}>X</button>
-        <div>
-        </div>
-        <button class="prev-button" @click=${this.prevSlide} ?disabled="${
-      this.index === 0
-    }">←</button>
-      <div>
-        ${this.slides.map((slide) => this.displaySlide(slide))}
-        </div>
-          <button class="next-button" @click=${this.nextSlide} ?disabled="${
-      this.index === this.slides.length - 1
-    }">→</button>
-        </div>
+        <button
+          class="prev-button"
+          @click=${this.prevSlide}
+          ?disabled="${this.index === 0}"
+        >
+          ←
+        </button>
+        <div>${this.slides.map((slide) => this.displaySlide(slide))}</div>
+        <button
+          class="next-button"
+          @click=${this.nextSlide}
+          ?disabled="${this.index === this.slides.length - 1}"
+        >
+          →
+        </button>
       </div>
     </div>`;
   }
 
   firstUpdated() {
-
     this.populateSlide();
     this.addOpenImageEventListener();
-    console.log(this.slides);
   }
 
   addOpenImageEventListener() {
@@ -105,7 +110,7 @@ export class Dialog extends LitElement {
   }
 
   displayIndex() {
-    return html` <p>${this.index} of ${this.slides.length}</p>`;
+    return html`<p>Slide ${this.index + 1} / ${this.slides.length}</p>`;
   }
 
   displaySlide(slide) {
@@ -113,26 +118,27 @@ export class Dialog extends LitElement {
       return html`<img class="pic" src="${slide.content}" />
         <h1>${slide.caption}</h1>
         <p>${slide.description}</p>
-        <p>Slide ${this.index + 1} / ${this.slides.length}</p>`;
+        ${this.displayIndex()}`;
     }
   }
 
   nextSlide() {
     if (this.index < this.slides.length - 1) {
       this.index++;
-      this.requestUpdate(); //see if i can use something else here so I don't update the whole component
+      this.requestUpdate();
     }
   }
   prevSlide() {
     if (this.index > 0) {
       this.index--;
-      this.requestUpdate(); //see if i can use something else here so I don't update the whole component
+      this.requestUpdate();
     }
   }
 
-  populateSlide(){
-    document.body.querySelectorAll("media-image").forEach( image => this.slides.push(image));
-
+  populateSlide() {
+    document.body
+      .querySelectorAll("media-image")
+      .forEach((image) => this.slides.push(image));
   }
 
   static get properties() {
