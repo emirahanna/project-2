@@ -75,7 +75,6 @@ export class MediaImage extends LitElement {
         ${this.displayContent()}
         <div class="info-panel">
           <h1>${this.caption}</h1>
-          <p>${this.description}</p>
         </div>
       </div>
     </div>
@@ -88,7 +87,8 @@ export class MediaImage extends LitElement {
     if (
       this.content.includes("jpg") ||
       this.content.includes("jpeg") ||
-      this.content.includes("png")
+      this.content.includes("png") ||
+      this.content.includes("gif")
     ) {
       return html`<img class="image" src="${this.content}" @click=${this.createOpenGalleryEvent}/>`;
     } else if (
@@ -118,6 +118,7 @@ export class MediaImage extends LitElement {
       content: { type: String, Reflect: true },
       caption: { type: String, Reflect: true },
       description: { type: String, Reflect: true },
+      index: { type: Number, Reflect: true },
     };
   }
 }
