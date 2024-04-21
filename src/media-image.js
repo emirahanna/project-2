@@ -90,26 +90,34 @@ export class MediaImage extends LitElement {
       this.content.includes("png") ||
       this.content.includes("gif")
     ) {
-      return html`<img class="image" src="${this.content}" @click=${this.createOpenGalleryEvent}/>`;
+      return html`<img class="image" src="${this.content}" @click=${this.contentClicked}/>`;
     } else if (
       this.content.includes("mp4") ||
       this.content.includes("mov") ||
       this.content.includes("avi")
     ) {
-      return html`<video class="image" src="${this.content}" controls @click=${this.createOpenGalleryEvent}></video>`;
+      return html`<video class="image" src="${this.content}" controls @click=${this.contentClicked}></video>`;
     } else if (
       this.content.includes("mp3") ||
       this.content.includes("wav") ||
       this.content.includes("flac")
     ) {
-      return html`<audio class="image" src="${this.content}" controls @click=${this.createOpenGalleryEvent}></audio>`;
+      return html`<audio class="image" src="${this.content}" controls @click=${this.contentClicked}></audio>`;
     } else {
       return html`<p>Invalid media type</p>`;
     }
   }
 
+  contentClicked(){
+    this.createOpenGalleryEvent();
+    this.updateIndex();
+  }
+
+  updateIndex(){
+    document.body.querySelector("dialog-box").index = this.index;
+  }
+
   createOpenGalleryEvent(){
-    console.log("IMAGE CLICKED")
     this.dispatchEvent(new CustomEvent("open-dialog", {bubbles: true, composed: true}));
   }
 

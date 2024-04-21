@@ -38,7 +38,7 @@ export class Dialog extends LitElement {
         z-index: 999;
         top: 50%;
         left: 50%;
-        transform: translate(-50%, -50%); /* Center the element itself */
+        transform: translate(-50%, -50%); /* so the dialog box is centered (if this isnt here its like cut off by the screen) */
       }
 
       .pic {
@@ -79,7 +79,7 @@ export class Dialog extends LitElement {
         >
           ←
         </button>
-        <div>${this.slides.map((slide) => this.displaySlide(slide))}</div>
+        <div>${this.displaySlide()}</div>
         <button
           class="next-button"
           @click=${this.nextSlide}
@@ -113,14 +113,12 @@ export class Dialog extends LitElement {
     return html`<p>Slide ${this.index + 1} / ${this.slides.length}</p>`;
   }
 
-  displaySlide(slide) {
-    if (slide.index === this.index) {
-      return html`<img class="pic" src="${slide.content}" />
-        <h1>${slide.caption}</h1>
-        <p>${slide.description}</p>
+  displaySlide() {
+      return html`<img class="pic" src="${this.slides[this.index].content}" />
+        <h1>${this.slides[this.index].caption}</h1>
+        <p>${this.slides[this.index].description}</p>
         ${this.displayIndex()}`;
     }
-  }
 
   nextSlide() {
     if (this.index < this.slides.length - 1) {
