@@ -18,11 +18,14 @@ export class Dialog extends LitElement {
         display: block;
       }
 
-      .shadow[inert] {
+      .shadow {
+        position: fixed;
+        top: 0;
+        left: 0;
         height: 100vh;
         width: 100vw;
-        background-color: black;
-        opacity: 0.7;
+        background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent black */
+        z-index: 998; /* Ensure the shadow is behind the dialog box */
       }
 
       .container {
@@ -38,7 +41,10 @@ export class Dialog extends LitElement {
         z-index: 999;
         top: 50%;
         left: 50%;
-        transform: translate(-50%, -50%); /* so the dialog box is centered (if this isnt here its like cut off by the screen) */
+        transform: translate(
+          -50%,
+          -50%
+        ); /* so the dialog box is centered (if this isnt here its like cut off by the screen) */
       }
 
       .pic {
@@ -68,8 +74,7 @@ export class Dialog extends LitElement {
     if (!this.open) {
       return html``;
     }
-    return html`
-    <div class="shadow">
+    return html` <div class="shadow">
       <div class="container">
         <button class="x-button" @click=${this.openFalse}>X</button>
         <button
@@ -102,11 +107,12 @@ export class Dialog extends LitElement {
 
   openTrue() {
     this.open = true;
-    console.log("NOW TRUE");
+    this.disableScroll();
   }
 
   openFalse() {
     this.open = false;
+    this.enableScroll();
   }
 
   displayIndex() {
@@ -114,11 +120,11 @@ export class Dialog extends LitElement {
   }
 
   displaySlide() {
-      return html`<img class="pic" src="${this.slides[this.index].content}" />
-        <h1>${this.slides[this.index].caption}</h1>
-        <p>${this.slides[this.index].description}</p>
-        ${this.displayIndex()}`;
-    }
+    return html`<img class="pic" src="${this.slides[this.index].content}" />
+      <h1>${this.slides[this.index].caption}</h1>
+      <p>${this.slides[this.index].description}</p>
+      ${this.displayIndex()}`;
+  }
 
   nextSlide() {
     if (this.index < this.slides.length - 1) {
@@ -137,6 +143,28 @@ export class Dialog extends LitElement {
     document.body
       .querySelectorAll("media-image")
       .forEach((image) => this.slides.push(image));
+  }
+
+  disableScroll() {
+   // get the current page scroll position (saves the pixels that have been scroller vertically and horizontally)
+   const scrollTop =  document.documentElement.scrollTop;
+   const scrollLeft =  document.documentElement.scrollLeft;
+   
+   // Store the current scroll position
+   this._scrollPosition = { top: scrollTop, left: scrollLeft };
+
+   // Disable scrolling
+   document.body.style.overflow = 'hidden';
+  }
+
+  enableScroll() {
+        // Resetting to Enable scrolling
+        document.body.style.overflow = '';
+
+        // Restore the scroll position
+        if (this._scrollPosition) {
+            window.scrollTo(this._scrollPosition.left, this._scrollPosition.top);
+        }
   }
 
   static get properties() {
