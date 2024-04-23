@@ -6,13 +6,20 @@
       name="viewport"
       content="width=device-width, initial-scale=1.0, viewport-fit=cover"
     />
-    <meta name="Description" content="Boilerplate for polaris chip" />
+    <meta name="Description" content="Work For Project 2" />
     <base href="/" />
 
+    <!-- fonts for the blog-->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Righteous&display=swap"
       rel="stylesheet"
     />
 
@@ -20,45 +27,59 @@
       :root,
       html,
       body {
-        margin: 0;
-        font-family: sans-serif;
+        font-family: "Nunito", sans-serif;
         background-color: beige;
         color: black;
       }
-      p {
-        margin: 0px 32px 16px 32px;
-        font-family: "Nunito", sans-serif;
+
+      .byline {
+        font-size: 1rem;
+        margin: 0px 0px 0px 32px;
+      }
+
+      .container {
+        margin: 16px 32px 16px 32px;
+        display: flex;
+        padding: 24px;
+        align-items: center;
+      }
+
+      .blogtext {
+        flex: 2;
       }
 
       .title {
-        font-family: "Courier New", Courier, monospace;
+        font-family: "Righteous", cursive;
         font-size: 2rem;
         margin: 32px;
       }
-
-      div {
-        display: flex;
-        justify-content: center;
-        margin: 32px;
+      .header {
+        background-color: black;
+        top: 0;
+        left: 0;
+        height: 100px;
+        width: 100vw;
+        margin: 0px;
+        padding: 0px;
       }
     </style>
-    <title>Project 2</title>
+    <title>A Totally Real Blog</title>
   </head>
 
   <body>
-    <h1 class="title">
-      The Cursed Tale of Elmo: Unveiling the Dark Underbelly of a Childhood Icon
-    </h1>
+    <!-- this is what is bringing in the definition for this tag -->
+    <script type="module" src="./src/media-image.js"></script>
+    <div class="header"></div>
+    <h1 class="title">A Look Into My Camera Roll</h1>
     <p class="byline">by: me who is ghostwriting this at 8:27 pm</p>
 
-    <div>
+    <div class="container">
       <media-image
-        index="0"
         content="https://i.ytimg.com/vi/rV1wx5P9rJY/maxresdefault.jpg"
         caption="i want to die"
         description="finals week looking like my final week"
       ></media-image>
-      <p>
+      <p class="blogtext">
         In the eerie depths of cyberspace, where memes morph into monstrosities
         and innocence is stripped away like candy from a baby, there lies a dark
         corner. It’s a place where childhood icons are twisted into abominable
@@ -66,32 +87,25 @@
         longer a beacon of joy but a harbinger of nightmares. Brace yourselves,
         for we are about to dive headfirst into the cursed abyss of Elmo, as
         seen through the eyes of a 21-year-old who dwells in the musty confines
-        of their mother's basement, unironically uttering the word “slay”.
-      </p>
-    </div>
-    <div>
-      <p>
-        Elmo, that once cuddly creature of felt and foam, now haunts the
-        internet’s underbelly like a spectral specter. Gone are the days of
-        innocent giggles and fuzzy hugs; Elmo now prowls the digital wasteland,
-        his beady eyes glinting with malice. This is not your grandmother’s
-        Sesame Street.
+        of their mother's basement, unironically uttering the word “slay”. Elmo,
+        that once cuddly creature of felt and foam, now haunts the internet’s
+        underbelly like a spectral specter. Gone are the days of innocent
+        giggles and fuzzy hugs; Elmo now prowls the digital wasteland, his beady
+        eyes glinting with malice. This is not your grandmother’s Sesame Street.
       </p>
       <media-image
-        index="1"
         content="https://i.redd.it/knxess3gy9k21.jpg"
         caption="look into my eyes"
         description="his eyes have bewitched me body and soul, and i am now dead"
       ></media-image>
     </div>
-    <div>
+    <div class="container">
       <media-image
-        index="2"
         content="https://img2.uquiz.com/content/images/quiz_share_images/1624608950.jpg"
         caption="always watching"
         description="never forget that you are always being watched. always"
       ></media-image>
-      <p>
+      <p class="blogtext">
         In this twisted narrative, Elmo emerges as a figure of chaos, a puppet
         gone rogue in a world he never made. Picture this: Elmo, clad in
         tattered remnants of his once-bright fur, his voice a discordant
@@ -100,14 +114,13 @@
         netizens.
       </p>
     </div>
-    <div>
+    <div class="container">
       <media-image
-        index="3"
         content="https://i.makeagif.com/media/3-06-2018/FIZk1O.gif"
         caption="girls just gotta have fun"
         description="according to the laws of nature and sesame street, elmo is a girl"
       ></media-image>
-      <p>
+      <p class="blogtext">
         But what, you may ask, transformed Elmo from a beloved children’s
         character into a cursed entity of internet lore? It is the amalgamation
         of countless memes, each more unholy than the last, that has twisted
@@ -117,15 +130,13 @@
         lords.
       </p>
     </div>
-
-    <div>
+    <div class="container">
       <media-image
-        index="4"
         content="https://images7.memedroid.com/images/UPLOADED919/5d708be49d074.jpeg"
         caption="farm fresh"
         description="pickling elmo to maintain freshness"
       ></media-image>
-      <p>
+      <p class="blogtext">
         In this shadowy realm, Elmo is not merely a puppet; he is a symbol of
         our collective descent into madness. His laughter echoes through the
         void, a grim reminder of the innocence we have lost. And yet, even as we
@@ -133,15 +144,13 @@
         closer to the cursed allure of Elmo.
       </p>
     </div>
-
-    <div>
+    <div class="container">
       <media-image
-        index="5"
         content="https://pbs.twimg.com/media/FgmzrbUWAAEXgMo.png"
         caption="teeth"
         description="look at her perfect teeth"
       ></media-image>
-      <p>
+      <p class="blogtext">
         But perhaps the most chilling aspect of this cursed tale is the
         realization that Elmo is not alone. He is but one thread in the tangled
         web of internet depravity, a web spun by those who revel in the
@@ -150,15 +159,13 @@
         the sanctity of childhood icons.
       </p>
     </div>
-
-    <div>
+    <div class="container">
       <media-image
-        index="6"
         content="https://thehowler.org/wp-content/uploads/2022/01/Elmo-has-Peaked-900x900.png"
         caption="be like elmo"
         description="elmo for president"
       ></media-image>
-      <p>
+      <p class="blogtext">
         So, the next time you hear the familiar refrain of “Elmo’s World”, take
         heed. For in the darkest corners of the internet, Elmo lurks, his
         laughter a haunting reminder of the curse we have unleashed upon
@@ -167,8 +174,5 @@
         slay.
       </p>
     </div>
-
-    <!-- this is what is bringing in the definition for this tag -->
-    <script type="module" src="./src/media-image.js"></script>
   </body>
 </html>

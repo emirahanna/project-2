@@ -1,5 +1,6 @@
-import { LitElement, html, css } from "lit";
-import { Dialog } from "./dialog.js";
+import { html, css } from "lit";
+import { Dialog } from "./dialog.js"; //Needed or else Media Image is never defined
+import { DDD } from "@lrnwebcomponents/d-d-d/d-d-d.js";
 
 /**
  * Now it's your turn. Here's what we need to try and do:
@@ -9,7 +10,7 @@ import { Dialog } from "./dialog.js";
  * b
  */
 
-export class MediaImage extends LitElement {
+export class MediaImage extends DDD {
   static get tag() {
     return "media-image";
   }
@@ -40,11 +41,11 @@ export class MediaImage extends LitElement {
       }
 
       .image {
-        width: var(--media-image-width, 40vw);;
+        max-width: var(--media-image-width, 40vw);
         height: var(--media-image-height, auto);
         overflow: hidden;
         object-fit: fil;
-        border-radius: 10px;
+        border-radius: 12px;
         border: 4px solid var(--media-image-primary-color-1);
         transition: all 0.3s ease-in;
       }

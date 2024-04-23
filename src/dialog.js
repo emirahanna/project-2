@@ -1,6 +1,7 @@
-import { LitElement, html, css } from "lit";
+import { html, css } from "lit";
+import { DDD } from "@lrnwebcomponents/d-d-d/d-d-d.js";
 
-export class Dialog extends LitElement {
+export class Dialog extends DDD {
   static get tag() {
     return "dialog-box";
   }
@@ -31,6 +32,7 @@ export class Dialog extends LitElement {
       .container {
         height: 100%;
         width: 70%;
+        display: flex;
         margin: 20px;
         padding: 20px;
         position: fixed;
@@ -48,7 +50,7 @@ export class Dialog extends LitElement {
       }
 
       .pic {
-        width: 40vw;
+        width: 30vw;
         height: 30vw;
         object-fit: contain;
       }
@@ -75,23 +77,25 @@ export class Dialog extends LitElement {
       return html``;
     }
     return html` <div class="shadow">
-      <div class="container">
+      <div>
         <button class="x-button" @click=${this.openFalse}>X</button>
-        <button
-          class="prev-button"
-          @click=${this.prevSlide}
-          ?disabled="${this.index === 0}"
-        >
-          ←
-        </button>
-        <div>${this.displaySlide()}</div>
-        <button
-          class="next-button"
-          @click=${this.nextSlide}
-          ?disabled="${this.index === this.slides.length - 1}"
-        >
-          →
-        </button>
+        <div class="container">
+          <button
+            class="prev-button"
+            @click=${this.prevSlide}
+            ?disabled="${this.index === 0}"
+          >
+            ←
+          </button>
+          <div>${this.displaySlide()}</div>
+          <button
+            class="next-button"
+            @click=${this.nextSlide}
+            ?disabled="${this.index === this.slides.length - 1}"
+          >
+            →
+          </button>
+        </div>
       </div>
     </div>`;
   }
@@ -142,8 +146,15 @@ export class Dialog extends LitElement {
   populateSlide() {
     document.body
       .querySelectorAll("media-image")
-      .forEach((image) => this.slides.push(image));
+      .forEach((image) => 
+      this.pushSlide(image));
   }
+
+  pushSlide(image){ //pushes image to the slides array and sets the index of the image based on where it is in the document
+    image.index = this.slides.length;
+    this.slides.push(image);
+  }
+  
 
   disableScroll() {
    // get the current page scroll position (saves the pixels that have been scroller vertically and horizontally)
