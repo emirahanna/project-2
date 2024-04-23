@@ -107,11 +107,13 @@ export class Dialog extends DDD {
 
   addOpenImageEventListener() {
     document.body.addEventListener("open-dialog", this.openTrue.bind(this));
+    console.log("added event listener");
   }
 
   openTrue() {
     this.open = true;
     this.disableScroll();
+    console.log("open dialog")
   }
 
   openFalse() {
