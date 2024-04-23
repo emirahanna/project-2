@@ -73,10 +73,14 @@ export class Dialog extends DDD {
   }
 
   render() {
+
+    console.log("rendered dialog box")
     if (!this.open) {
       return html``;
     }
+
     return html` <div class="shadow">
+
       <div>
         <button class="x-button" @click=${this.openFalse}>X</button>
         <div class="container">
