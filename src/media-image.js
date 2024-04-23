@@ -1,5 +1,5 @@
 import { html, css } from "lit";
-import { Dialog } from "./dialog.js"; //Needed or else Media Image is never defined
+import { DialogBox } from "./dialog-box.js"; //Needed or else Media Image is never defined
 import { DDD } from "@lrnwebcomponents/d-d-d/d-d-d.js";
 
 /**
@@ -70,7 +70,6 @@ export class MediaImage extends DDD {
   }
 
   render() {
-    window.Dialog.requestAvailability();
     return html`<div>
       <div class="image-panel">
         ${this.displayContent()}

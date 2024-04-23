@@ -1,7 +1,7 @@
 import { html, css } from "lit";
 import { DDD } from "@lrnwebcomponents/d-d-d/d-d-d.js";
 
-export class Dialog extends DDD {
+export class DialogBox extends DDD {
   static get tag() {
     return "dialog-box";
   }
@@ -73,12 +73,10 @@ export class Dialog extends DDD {
   }
 
   render() {
-
     console.log("rendered dialog box")
     if (!this.open) {
       return html``;
     }
-
     return html` <div class="shadow">
 
       <div>
@@ -186,25 +184,25 @@ export class Dialog extends DDD {
 
   static get properties() {
     return {
-      title: { type: String, Reflect: true },
-      text: { type: String, Reflect: true },
-      open: { type: Boolean, Reflect: true },
-      slides: { type: Array, Reflect: true },
+      title: { type: String},
+      text: { type: String},
+      open: { type: Boolean, reflect: true },
+      slides: { type: Array},
     };
   }
 }
 
-globalThis.customElements.define(Dialog.tag, Dialog);
+globalThis.customElements.define(DialogBox.tag, DialogBox);
 
 // register globally so we can make sure there is only one
-window.Dialog = window.Dialog || {};
+window.DialogBox = window.DialogBox || {};
 // request if this exists. This helps invoke the element existing in the dom
 // as well as that there is only one of them. That way we can ensure everything
 // is rendered through the same modal
-window.Dialog.requestAvailability = () => {
-  if (!window.Dialog.instance) {
-    window.Dialog.instance = document.createElement("dialog-box");
-    document.body.appendChild(window.Dialog.instance);
+window.DialogBox.requestAvailability = () => {
+  if (!window.DialogBox.instance) {
+    window.DialogBox.instance = document.createElement("dialog-box");
+    document.body.appendChild(window.DialogBox.instance);
   }
-  return window.Dialog.instance;
+  return window.DialogBox.instance;
 };
