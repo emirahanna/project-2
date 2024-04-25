@@ -176,8 +176,13 @@ export class DialogBox extends LitElement {
   populateSlide() {
     //pushes image to the slides array and sets the index of the image based on where it is in the document
     document.body.querySelectorAll("media-image").forEach((image) => {
-      image.index = this.slides.length;
-      this.slides.push(image);
+      const slideData = {
+        content: image.content,
+        caption: image.caption,
+        description: image.description,
+        index: this.slides.length
+      };
+      this.slides.push(slideData);
     });
   }
 
