@@ -1,5 +1,5 @@
 import { LitElement, html, css } from "lit";
-import  "./media-image.js"
+import "./media-image.js";
 
 export class DialogBox extends LitElement {
   static get tag() {
@@ -15,14 +15,14 @@ export class DialogBox extends LitElement {
 
   static get styles() {
     return css`
-    super.styles,
+      super.styles,
       :host {
         --container-width: 70vw;
         --container-height: 100vh;
         display: none;
       }
 
-      :host([open]){
+      :host([open]) {
         display: block;
       }
 
@@ -56,7 +56,6 @@ export class DialogBox extends LitElement {
       }
 
       .panel {
-        
         transition: all 250ms ease-in;
         display: flex;
         justify-content: center;
@@ -96,7 +95,7 @@ export class DialogBox extends LitElement {
 
       .next-button:hover,
       .next-button:focus,
-      .next-button:active{
+      .next-button:active {
         background-color: var(--media-image-primary-color-2);
       }
     `;
@@ -110,16 +109,16 @@ export class DialogBox extends LitElement {
     return html` <div class="shadow">
       <div class="container">
         <button class="x-button" @click=${this.openFalse}>X</button>
-      
-          <div>${this.displaySlide()}</div>
-          <div class="panel">
+
+        <div>${this.displaySlide()}</div>
+        <div class="panel">
           <button
             class="prev-button"
             @click=${this.prevSlide}
             ?disabled="${this.index === 0}"
           >
-            ←
-          </button><button
+            ←</button
+          ><button
             class="next-button"
             @click=${this.nextSlide}
             ?disabled="${this.index === this.slides.length - 1}"
@@ -136,18 +135,13 @@ export class DialogBox extends LitElement {
     this.addOpenImageEventListener();
   }
 
-  
   addOpenImageEventListener() {
-    window.addEventListener("open-dialog", this.openTrue.bind(this));
+    window.addEventListener("open-dialog", (e) => {
+      this.open = true;
+      this.disableScroll();
+      console.log("open dialog");
+    });
     console.log("added event listener");
-  }
-  
- 
-
-  openTrue() {
-    this.open = true;
-    this.disableScroll();
-    console.log("open dialog");
   }
 
   openFalse() {
@@ -155,12 +149,15 @@ export class DialogBox extends LitElement {
     this.enableScroll();
   }
 
-
   displaySlide() {
-    return html`<div><img class="pic" src="${this.slides[this.index].content}" />
-    <p style="right: 8px; position:absolute;z-index:1000;">Slide ${this.index + 1} / ${this.slides.length}</p>
-    <h1>${this.slides[this.index].caption}</h1>
-      <p>${this.slides[this.index].description}</p></div>`;
+    return html`<div>
+      <img class="pic" src="${this.slides[this.index].content}" />
+      <p style="right: 8px; position:absolute;z-index:1000;">
+        Slide ${this.index + 1} / ${this.slides.length}
+      </p>
+      <h1>${this.slides[this.index].caption}</h1>
+      <p>${this.slides[this.index].description}</p>
+    </div>`;
   }
 
   nextSlide() {
@@ -218,4 +215,3 @@ export class DialogBox extends LitElement {
 }
 
 globalThis.customElements.define(DialogBox.tag, DialogBox);
-
