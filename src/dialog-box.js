@@ -205,9 +205,7 @@ export class DialogBox extends LitElement {
 
   static get properties() {
     return {
-      ...super.properties,
-      title: { type: String },
-      text: { type: String },
+      index: { type: Number },
       open: { type: Boolean, reflect: true },
       slides: { type: Array },
     };
