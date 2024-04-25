@@ -115,15 +115,15 @@
     }
 
     createOpenGalleryEvent(){
-      this.dispatchEvent(new CustomEvent("open-dialog", {bubbles: true, composed: true}));
+      this.dispatchEvent(new CustomEvent("open-dialog", {bubbles: true, composed: true, cancelable: true}));
     }
 
     static get properties() {
       return {
-        content: { type: String, Reflect: true },
-        caption: { type: String, Reflect: true },
-        description: { type: String, Reflect: true },
-        index: { type: Number, Reflect: true },
+        content: { type: String},
+        caption: { type: String},
+        description: { type: String},
+        index: { type: Number},
       };
     }
   }
