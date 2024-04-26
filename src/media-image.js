@@ -38,10 +38,10 @@
         }
 
         .image {
-          max-width: var(--media-image-width, 40vw);
-          height: var(--media-image-height, auto);
+          width: var(--media-image-width, 20vw);
+          height: var(--media-image-height, 20vw);
           overflow: hidden;
-          object-fit: fil;
+          object-fit: cover;
           border-radius: 12px;
           border: 4px solid var(--media-image-primary-color-1);
           transition: all 0.3s ease-in;
@@ -54,6 +54,12 @@
           display: inline-flex;
           margin: auto;
           padding: auto;
+        }
+
+        .caption{
+          font-size: 24px;
+          color: black;
+          text-align: left;
         }
 
         .image:hover,
@@ -71,7 +77,7 @@
         <div class="image-panel">
           ${this.displayContent()}
           <div class="info-panel">
-            <h1>${this.caption}</h1>
+            <h1 class="caption">${this.caption}</h1>
           </div>
         </div>
       </div>
