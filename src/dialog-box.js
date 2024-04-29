@@ -1,4 +1,4 @@
-import { LitElement, html, css } from "lit";
+  import { LitElement, html, css } from "lit";
 import "./media-image.js";
 
 export class DialogBox extends LitElement {
@@ -47,9 +47,9 @@ export class DialogBox extends LitElement {
         position: fixed;
         top: 0;
         left: 0;
-        height: 100vh;
-        width: 100vw;
-        background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent black */
+        height: 100%;
+        width: 100%;
+        background: #000000AA;
         z-index: 998; /* Ensure the shadow is behind the dialog box */
       }
 
@@ -61,12 +61,13 @@ export class DialogBox extends LitElement {
       }
 
       .close-container {
-        margin: -2px 0px 0px -11px;
+        margin: -2px 0px 0px -10px;
+        
       }
 
       .leftright {
         height: 4px;
-        width: 25px;
+        width: 20px;
         position: absolute;
         background-color: white;
         border-radius: 2px;
@@ -76,7 +77,7 @@ export class DialogBox extends LitElement {
 
       .rightleft {
         height: 4px;
-        width: 25px;
+        width: 20px;
         position: absolute;
         background-color: white;
         border-radius: 2px;
@@ -87,27 +88,42 @@ export class DialogBox extends LitElement {
         background-color: red;
         position: absolute;
         color: white;
-        border: 1px solid red;
-        padding: 25px;
-        margin-bottom: 8px;
+        padding: 20px;
+        margin: 0px 0px 8px 8px;
         border-radius: 50%;
         right: 12px;
         cursor: pointer;
+        border: none; 
       }
 
       .image-container {
         width: 70vw;
-        height: 70vh;
-        overflow: hidden;
+        height: 80vh;
         margin: auto;
-        margin-top: 24px;
+        margin-top: 10vh;
       }
 
       .image {
         width: 70vw;
-        height: 50vh;
+        height: 45vh;
         border-radius: 12px;
         object-fit: contain;
+        background-color: #00000070;
+      }
+
+      .details-container {
+        width: 70vw;
+        
+        height: 5vh;
+        overflow-x: hidden;
+        overflow-y: visible;
+        scroll-behavior: smooth;
+      }
+
+      .image-index {
+        margin: -32px 0px 0px 0px;
+        position: absolute;
+        right: 5%;
       }
 
       .caption,
@@ -140,7 +156,6 @@ export class DialogBox extends LitElement {
       .close-button:focus,
       .close-button:active {
         background-color: #800033;
-        border: 1px solid maroon;
       }
 
       .next-button:hover,
@@ -234,10 +249,12 @@ export class DialogBox extends LitElement {
     return html`
       <div>
         ${this.displayContent(this.slides[this.index].content)}
-        <p>Slide ${this.index + 1} / ${this.slides.length}</p>
+        <p class="image-index">Slide ${this.index + 1} / ${this.slides.length}</p>
         <h1 class="caption">${this.slides[this.index].caption}</h1>
-        <p class="description">${this.slides[this.index].description}</p>
-      </div>
+        <div class="details-container">
+          <p class="description">${this.slides[this.index].description}</p>
+        </div>
+        </div>
     `;
   }
 
