@@ -12,6 +12,7 @@
         "https://preview.redd.it/02411nxds2m91.png?width=640&crop=smart&auto=webp&s=3a91ab902fdab402e4bcb84a3907bb0a2bad2d9b";
       this.caption = "caption";
       this.description = "description";
+      this.alttext = "alt text";
     }
 
     static get styles() {
@@ -86,7 +87,7 @@
         this.content.includes("png") ||
         this.content.includes("gif")
       ) {
-        return html`<img class="image" src="${this.content}" @click=${this.contentClicked}/>`;
+        return html`<img class="image" src="${this.content}" @click=${this.contentClicked} alt=${this.alttext} />`;
       } else if (
         this.content.includes("mp4") ||
         this.content.includes("mov") ||
@@ -122,6 +123,7 @@
         content: { type: String},
         caption: { type: String},
         description: { type: String},
+        alttext: { type: String},
         index: { type: Number},
       };
     }

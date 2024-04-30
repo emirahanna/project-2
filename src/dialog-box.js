@@ -54,10 +54,10 @@ export class DialogBox extends LitElement {
       }
 
       .main-panel {
-        transition: all 250ms ease-in;
-        display: inline-flex;
-        background: transparent;
-        justify-content: center;
+        display: flex;
+        align-items: center; /* Centers children vertically */
+        justify-content: space-between; /* Distributes space between children */
+        height: 100%; /* Ensure it takes full height of its container */
       }
 
       .close-container {
@@ -96,24 +96,28 @@ export class DialogBox extends LitElement {
       }
 
       .content {
-        width: 70vw;
-        height: 80vh;
-        margin: auto;
-        margin-top: 8vh;
-        border: none;
-      }
+  flex-grow: 1; /* Takes the remaining space between buttons */
+  display: flex;
+  flex-direction: column; /* Stacks image and details vertically */
+  justify-content: center; /* Aligns content in the center vertically */
+}
 
       .image {
-        width: 70vw;
+        width: 60vw;
         height: 45vh;
         border-radius: 12px;
         object-fit: contain;
-        background: rgb(0,212,255);
-background: radial-gradient(circle, rgba(0,212,255,0) 0%, rgba(0,0,0,1) 78%, rgba(9,6,15,1) 100%);
+        background: rgb(0, 212, 255);
+        background: radial-gradient(
+          circle,
+          rgba(0, 212, 255, 0) 0%,
+          rgba(0, 0, 0, 1) 78%,
+          rgba(9, 6, 15, 1) 100%
+        );
       }
 
       .description-container {
-        width: 70vw;
+        width: 60vw;
         height: 20vh;
         overflow-x: hidden;
         overflow-y: visible;
@@ -121,10 +125,12 @@ background: radial-gradient(circle, rgba(0,212,255,0) 0%, rgba(0,0,0,1) 78%, rgb
       }
 
       .image-index {
-        margin: -32px 0px 0px 0px;
-        position: absolute;
-        right: 5%;
-      }
+  position: absolute;
+  bottom: 10px; /* Adjust as necessary */
+  right: 10px; /* Adjust as necessary */
+  color: white; /* Ensures visibility on darker backgrounds */
+  z-index: 10; /* Ensures it's above the image */
+}
 
       .caption,
       .description {
@@ -140,16 +146,52 @@ background: radial-gradient(circle, rgba(0,212,255,0) 0%, rgba(0,0,0,1) 78%, rgb
         right: 12px;
         position: absolute;
         z-index: 1010;
+        box-sizing: border-box;
+        position: relative;
+        display: block;
+        transform: scale(1);
+        border: 2px solid transparent;
+        border-radius: 100px;
       }
+      .next-button::after {
+        content: "";
+        display: block;
+        box-sizing: border-box;
+        position: absolute;
+        width: 20px;
+        height: 20px;
+        border-bottom: 2px solid;
+        border-left: 2px solid;
+        transform: rotate(225deg);
+        left: 6px;
+        top: 4px;
+      }
+
       .prev-button {
         font-size: 32px;
         background-color: var(--media-image-primary-color-3, white);
         width: 5vw;
         height: 10vh;
-        left: 12px;
-        position: absolute;
         z-index: 1010;
-        vertical-align: middle;
+                box-sizing: border-box;
+        position: relative;
+        display: block;
+        transform: scale(1);
+        border: 2px solid transparent;
+        border-radius: 100px;
+      }
+      .prev-button::after {
+        content: "";
+        display: block;
+        box-sizing: border-box;
+        position: absolute;
+        width: 20px;
+        height: 20px;
+        border-bottom: 2px solid;
+        border-left: 2px solid;
+        transform: rotate(45deg);
+        left: 6px;
+        top: 4px;
       }
 
       .close-button:hover .rightleft,
@@ -163,10 +205,45 @@ background: radial-gradient(circle, rgba(0,212,255,0) 0%, rgba(0,0,0,1) 78%, rgb
         background-color: #800033;
       }
 
-      .next-button:hover,
       .next-button:focus,
-      .next-button:active {
+      .prev-button:focus{
         background-color: var(--media-image-primary-color-2);
+        animation: wiggle 1s;
+      }
+
+      @keyframes fadeInUp {
+        0% {
+          opacity: 0;
+        }
+        100% {
+          opacity: 1;
+        }
+      }
+
+      @keyframes wiggle {
+        0%,
+        7% {
+          transform: rotateZ(0);
+        }
+        15% {
+          transform: rotateZ(-15deg);
+        }
+        20% {
+          transform: rotateZ(10deg);
+        }
+        25% {
+          transform: rotateZ(-10deg);
+        }
+        30% {
+          transform: rotateZ(6deg);
+        }
+        35% {
+          transform: rotateZ(-4deg);
+        }
+        40%,
+        100% {
+          transform: rotateZ(0);
+        }
       }
     `;
   }
@@ -188,27 +265,22 @@ background: radial-gradient(circle, rgba(0,212,255,0) 0%, rgba(0,0,0,1) 78%, rgb
             class="prev-button"
             @click=${this.prevSlide}
             ?disabled="${this.index === 0}"
-          >
-            ←
-          </button>
-          <div class="content">${this.displayImage()}
-            ${this.displayDetail()}
+          ></button>
+          <div class="content">
+            ${this.displayImage()} ${this.displayDetail()}
           </div>
 
           <button
             class="next-button"
             @click=${this.nextSlide}
             ?disabled="${this.index === this.slides.length - 1}"
-          >
-            →
-          </button>
+          ></button>
         </div>
       </div>
     </div>`;
   }
 
   displayContent(content) {
-    console.log(content);
     //making it so that the media type is determined by the file extension
     if (
       content.includes("jpg") ||
@@ -216,7 +288,11 @@ background: radial-gradient(circle, rgba(0,212,255,0) 0%, rgba(0,0,0,1) 78%, rgb
       content.includes("png") ||
       content.includes("gif")
     ) {
-      return html`<img class="image" src="${content}" />`;
+      return html`<img
+        class="image"
+        src="${content}"
+        alt="${this.slides[this.index].alttext}"
+      />`;
     } else if (
       content.includes("mp4") ||
       content.includes("mov") ||
