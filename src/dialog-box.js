@@ -1,4 +1,4 @@
-  import { LitElement, html, css } from "lit";
+import { LitElement, html, css } from "lit";
 import "./media-image.js";
 
 export class DialogBox extends LitElement {
@@ -49,20 +49,19 @@ export class DialogBox extends LitElement {
         left: 0;
         height: 100%;
         width: 100%;
-        background: #000000AA;
+        background: #000000aa;
         z-index: 998; /* Ensure the shadow is behind the dialog box */
       }
 
-      .info-panel {
+      .main-panel {
         transition: all 250ms ease-in;
-        display: flex;
+        display: inline-flex;
         background: transparent;
         justify-content: center;
       }
 
       .close-container {
         margin: -2px 0px 0px -10px;
-        
       }
 
       .leftright {
@@ -93,14 +92,15 @@ export class DialogBox extends LitElement {
         border-radius: 50%;
         right: 12px;
         cursor: pointer;
-        border: none; 
+        border: none;
       }
 
-      .image-container {
+      .content {
         width: 70vw;
         height: 80vh;
         margin: auto;
-        margin-top: 10vh;
+        margin-top: 8vh;
+        border: none;
       }
 
       .image {
@@ -108,13 +108,13 @@ export class DialogBox extends LitElement {
         height: 45vh;
         border-radius: 12px;
         object-fit: contain;
-        background-color: #00000070;
+        background: rgb(0,212,255);
+background: radial-gradient(circle, rgba(0,212,255,0) 0%, rgba(0,0,0,1) 78%, rgba(9,6,15,1) 100%);
       }
 
-      .details-container {
+      .description-container {
         width: 70vw;
-        
-        height: 5vh;
+        height: 20vh;
         overflow-x: hidden;
         overflow-y: visible;
         scroll-behavior: smooth;
@@ -137,14 +137,19 @@ export class DialogBox extends LitElement {
         background-color: var(--media-image-primary-color-3);
         width: 5vw;
         height: 10vh;
-        border: none; /* Remove borders */
+        right: 12px;
+        position: absolute;
+        z-index: 1010;
       }
       .prev-button {
         font-size: 32px;
-        background-color: var(--media-image-primary-color-3);
+        background-color: var(--media-image-primary-color-3, white);
         width: 5vw;
         height: 10vh;
-        border: none; /* Remove borders */
+        left: 12px;
+        position: absolute;
+        z-index: 1010;
+        vertical-align: middle;
       }
 
       .close-button:hover .rightleft,
@@ -167,7 +172,6 @@ export class DialogBox extends LitElement {
   }
 
   render() {
-    console.log("rendered dialog box");
     if (!this.open) {
       return html``;
     }
@@ -179,15 +183,19 @@ export class DialogBox extends LitElement {
             <div class="rightleft"></div>
           </div>
         </button>
-        <div class="image-container">${this.displaySlide()}</div>
-        <div class="info-panel">
+        <div class="main-panel">
           <button
             class="prev-button"
             @click=${this.prevSlide}
             ?disabled="${this.index === 0}"
           >
-            ←</button
-          ><button
+            ←
+          </button>
+          <div class="content">${this.displayImage()}
+            ${this.displayDetail()}
+          </div>
+
+          <button
             class="next-button"
             @click=${this.nextSlide}
             ?disabled="${this.index === this.slides.length - 1}"
@@ -235,9 +243,7 @@ export class DialogBox extends LitElement {
     window.addEventListener("open-dialog", (e) => {
       this.open = true;
       this.disableScroll();
-      console.log("open dialog");
     });
-    console.log("added event listener");
   }
 
   openFalse() {
@@ -245,16 +251,17 @@ export class DialogBox extends LitElement {
     this.enableScroll();
   }
 
-  displaySlide() {
+  displayImage() {
+    return html` ${this.displayContent(this.slides[this.index].content)} `;
+  }
+
+  displayDetail() {
     return html`
-      <div>
-        ${this.displayContent(this.slides[this.index].content)}
-        <p class="image-index">Slide ${this.index + 1} / ${this.slides.length}</p>
-        <h1 class="caption">${this.slides[this.index].caption}</h1>
-        <div class="details-container">
-          <p class="description">${this.slides[this.index].description}</p>
-        </div>
-        </div>
+      <p class="image-index">Slide ${this.index + 1} / ${this.slides.length}</p>
+      <h1 class="caption">${this.slides[this.index].caption}</h1>
+      <div class="description-container">
+        <p class="description">${this.slides[this.index].description}</p>
+      </div>
     `;
   }
 

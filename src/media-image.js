@@ -1,11 +1,4 @@
   import { LitElement, html, css } from "lit";
-  /**
-   * Now it's your turn. Here's what we need to try and do:
-   * 1. Get you HTML from your card working in here
-   * 2. Get your CSS rescoped as needed to work here
-   * pls help i need to sleep but i also need to do this but i also need to sleep this is a cry for help
-   * b
-   */
 
   export class MediaImage extends LitElement {
     static get tag() {
@@ -23,13 +16,13 @@
 
     static get styles() {
       return css`
-        :host {
-          --media-image-primary-color-1: #333;
-          --media-image-primary-color-2: navy;
-          --media-image-primary-color-3: yellow;
-          --media-image-secondary-color-1: white;
-          --media-image-secondary-color-2: lightgray;
-          --media-image-secondary-color-3: red;
+        :root, :host {
+          --media-image-primary-color-1: #7749B9;
+          --media-image-primary-color-2: #09060F;
+          --media-image-primary-color-3: #642637;
+          --media-image-secondary-color-1: #F7F5FB;
+          --media-image-secondary-color-2: #D99CAD;
+          --media-image-secondary-color-3: #CB8877;
           color: black;
           display: block;
           padding: 20px;
@@ -43,7 +36,7 @@
           overflow: hidden;
           object-fit: cover;
           border-radius: 12px;
-          border: 4px solid var(--media-image-primary-color-1);
+          border: 4px solid var(--media-image-primary-color-2);
           transition: all 0.3s ease-in;
         }
         .info-panel {
@@ -67,7 +60,7 @@
         .image:active {
           cursor: pointer;
           transform: translate(8px, -8px);
-          box-shadow: grey -10px 10px;
+          box-shadow: var(--media-image-primary-color-2) -10px 10px;
         }
       `;
     }
