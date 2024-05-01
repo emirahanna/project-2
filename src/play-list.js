@@ -128,6 +128,7 @@ export class PlayList extends DDD {
         }
 
         .image-index {
+          bottom:0;
           position: absolute;
           color: var(--media-image-secondary-color-1); /* Ensures visibility on darker backgrounds */
           background-color: var(--media-image-primary-color-1) ;
